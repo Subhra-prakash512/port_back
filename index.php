@@ -18,27 +18,32 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = trim($_POST["email"]);
+    $id = trim($_POST["id"]);
     $password = $_POST["password"];
 
+   
+
     // Find user
-    $sql = "SELECT id, username, password FROM users WHERE email = ?";
+    $sql = "SELECT id, name, pass FROM login WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param("s", $id);
     $stmt->execute();
 
     $result = $stmt->get_result();
+    
 
     if ($result->num_rows == 1) {
 
         $user = $result->fetch_assoc();
 
+       
+
         // Check password
-        if (password_verify($password, $user["password"])) {
+        if ($password === $user["pass"]) {
 
             // Login successful
             $_SESSION["user_id"] = $user["id"];
-            $_SESSION["username"] = $user["username"];
+            $_SESSION["username"] = $user["name"];
 
             header("Location: dashboard.php");
             exit();
@@ -85,12 +90,12 @@ $conn->close();
         <form method="POST">
 
             <div class="input-box">
-                <label>Email</label>
+                <label>ID</label>
 
                 <input
-                    type="id"
-                    name="number"
-                    placeholder="Enter your email"
+                    type="number"
+                    name="id"
+                    placeholder="Enter your ID"
                     required
                 >
             </div>
