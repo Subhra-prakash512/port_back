@@ -398,7 +398,7 @@ $username = $_SESSION["username"];
 
                 <!-- MANAGE API -->
 
-                <a href="manage-api.php" class="dashboard-card">
+                <a href="manage_api/manage_api_main.php" class="dashboard-card">
 
                     <div class="card-icon">
                         ⚙

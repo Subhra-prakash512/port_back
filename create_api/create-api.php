@@ -125,7 +125,7 @@ if (isset($_POST["process"])) {
 
             $api_id_gen = $code;
 
-            echo $api_id_gen;
+              $api_id_gen;
             // unique add on 
 
             $unique_addon_value = 3;
@@ -144,44 +144,96 @@ if (isset($_POST["process"])) {
 
             $unique_addon_gen = $code;
 
-            echo $unique_addon_gen;
+              $unique_addon_gen;
 
 
 
 
-            print_r($_POST);
-            echo count($_POST);
-            echo $_POST["api_name"];
+           
+$add_api_name = preg_replace('/[^a-zA-Z0-9_]/','_', $api_id_gen);
+$api_name_fix = preg_replace('/[^a-zA-Z0-9_]+/', '_', $_POST["api_name"]);
+$api_name_fix = trim($api_name_fix, '_');
+            $api_name =$api_name_fix."_".$add_api_name;
+            $key_count = count($_POST["key_name"]);
+            $api_url= "localhost/demo";
 
-            $api_name = $_POST["api_name"];
+           
 
             /*
              * Save API information to MySQL database.
              */
-
+           
             $api_id = $api_id_gen;
             $user_id = $_SESSION["user_id"];
             $unique_add_on = $unique_addon_gen;
 
 
             $sql = "INSERT INTO api_log
-        (api_id, user_id, api_name, unique_add_on)
-        VALUES (?, ?, ?, ?)";
+        (api_id, user_id, api_name, unique_add_on, api_url)
+        VALUES (?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($sql);
 
             $stmt->bind_param(
-                "ssss",
+                "sssss",
                 $api_id,
                 $user_id,
                 $api_name,
-                $unique_add_on
+                $unique_add_on,
+                $api_url
             );
 
                 if ($stmt->execute()) {
-                    echo "<br>API information saved successfully.";
+                      "<br>API information saved successfully. <br>";
+    $flag = null;
+                    // Save API keys to the database
+                    for ($i = 0; $i < count($key_names); $i++) {
+                        $key_name_[$i]= trim($key_names[$i]);
+                        $key_type_[$i]= trim($key_types[$i]);
+
+                     
+
+                        
+
+                        if (count($key_names) == $i+1) {
+                             $flag .= $key_name_[$i] . " " . $key_type_[$i] ;
+                              ("last key");
+                            
+                        }
+                        else {
+                             $flag .= $key_name_[$i] . " " . $key_type_[$i] . ",";
+                               (" key");
+                        }
+
+
+
+                       
+                    }
+
+                     "<br>Flag: " . $flag;
+    $api_table_stem = "create table $api_name(
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    $flag
+    
+    
+    
+    )";
+
+       $ats = $conn->prepare($api_table_stem);
+if ($ats->execute()) {
+                      "<br>API table created successfully. <br>";
+        }
+          else {
+                      "<br>Error: " . $ats->error;
+                }
+        
+                    
+
+
+
+
                 } else {
-                    echo "<br>Error: " . $stmt->error;
+                      "<br>Error: " . $stmt->error;
                 }
 
 
@@ -273,7 +325,7 @@ if (isset($_POST["process"])) {
 
         <div class="steps">
 
-            <div class="step <?php echo !$showKeyForm ? 'active' : ''; ?>">
+            <div class="step <?php   !$showKeyForm ? 'active' : ''; ?>">
 
                 <div class="step-number">
                     1
@@ -287,7 +339,7 @@ if (isset($_POST["process"])) {
             <div class="step-line"></div>
 
 
-            <div class="step <?php echo $showKeyForm ? 'active' : ''; ?>">
+            <div class="step <?php   $showKeyForm ? 'active' : ''; ?>">
 
                 <div class="step-number">
                     2
@@ -312,7 +364,7 @@ if (isset($_POST["process"])) {
                 <?php if ($error != ""): ?>
 
                     <div class="error">
-                        <?php echo htmlspecialchars($error); ?>
+                        <?php  echo  htmlspecialchars($error); ?>
                     </div>
 
                 <?php endif; ?>
@@ -330,7 +382,7 @@ if (isset($_POST["process"])) {
                         </label>
 
                         <input type="text" name="api_name" placeholder="Enter API name"
-                            value="<?php echo htmlspecialchars($api_name); ?>" required>
+                            value="<?php echo  htmlspecialchars($api_name); ?>" required>
 
                     </div>
 
@@ -345,7 +397,7 @@ if (isset($_POST["process"])) {
                         </label>
 
                         <input type="number" name="key_count" placeholder="Example: 5" min="1" max="50"
-                            value="<?php echo $key_count > 0 ? $key_count : ''; ?>" required>
+                            value="<?php   $key_count > 0 ? $key_count : ''; ?>" required>
 
                     </div>
 
@@ -377,7 +429,7 @@ if (isset($_POST["process"])) {
                 <?php if ($error != ""): ?>
 
                     <div class="error">
-                        <?php echo htmlspecialchars($error); ?>
+                        <?php echo  htmlspecialchars($error); ?>
                     </div>
 
                 <?php endif; ?>
@@ -390,7 +442,7 @@ if (isset($_POST["process"])) {
                     </h2>
 
                     <div class="key-count">
-                        <?php echo $key_count; ?> Keys
+                        <?php   $key_count; ?> Keys
                     </div>
 
                 </div>
@@ -402,7 +454,7 @@ if (isset($_POST["process"])) {
 
                     <!-- Keep API name -->
 
-                    <input type="hidden" name="api_name" value="<?php echo htmlspecialchars($api_name); ?>">
+                    <input type="hidden" name="api_name" value="<?php echo   htmlspecialchars($api_name); ?>">
 
 
 
@@ -414,7 +466,7 @@ if (isset($_POST["process"])) {
 
                             <div class="key-number">
 
-                                KEY <?php echo $i + 1; ?>
+                                KEY <?php   $i + 1; ?>
 
                             </div>
 
@@ -450,33 +502,19 @@ if (isset($_POST["process"])) {
                                             Select type
                                         </option>
 
-                                        <option value="string">
+                                        <option value="VARCHAR(255)">
                                             String
                                         </option>
 
-                                        <option value="integer">
+                                        <option value="INTEGER(50)">
                                             Integer
                                         </option>
 
-                                        <option value="float">
+                                        <option value="FLOAT(50)">
                                             Float
                                         </option>
 
-                                        <option value="boolean">
-                                            Boolean
-                                        </option>
-
-                                        <option value="email">
-                                            Email
-                                        </option>
-
-                                        <option value="date">
-                                            Date
-                                        </option>
-
-                                        <option value="url">
-                                            URL
-                                        </option>
+                                        
 
                                     </select>
 
@@ -527,7 +565,7 @@ if (isset($_POST["process"])) {
                 </div>
 
 
-                <a href="dashboard.php" class="btn" style="
+                <a href="../dashboard.php" class="btn" style="
                     display:flex;
                     align-items:center;
                     justify-content:center;
