@@ -90,7 +90,7 @@ $result = $stmt->get_result();
 <nav class="navbar">
 
     <div class="logo">
-        A<span>•</span>K
+        S<span>•</span>P
     </div>
 
     <a
@@ -240,16 +240,16 @@ $result = $stmt->get_result();
 
                     <div class="row-actions">
 
-                        <button
-                            type="button"
-                            class="copy-btn"
-                            onclick="copyAPI(
-                                <?php echo $api["api_id"]; ?>,
-                                this
-                            )" 
-                        >
-                            Copy
-                        </button>
+                       <button
+    type="button"
+    class="copy-btn"
+    onclick="copyAPI(
+        '<?php echo htmlspecialchars($api["api_id"], ENT_QUOTES, "UTF-8"); ?>',
+        this
+    )"
+>
+    Copy
+</button>
 
 
                         <a
@@ -312,41 +312,81 @@ $result = $stmt->get_result();
 ========================================= -->
 
 <script>
-
 function copyAPI(id, button) {
 
-    const urlElement =
-        document.getElementById("url-" + id);
+    const urlElement = document.getElementById("url-" + id);
 
-    const url =
-        urlElement.innerText;
+    if (!urlElement) {
+        alert("URL not found.");
+        return;
+    }
 
+    const url = urlElement.textContent.trim();
 
-    navigator.clipboard.writeText(url)
-        .then(function () {
+    // Modern clipboard API
+    if (navigator.clipboard && window.isSecureContext) {
 
-            button.innerText = "Copied ✓";
+        navigator.clipboard.writeText(url)
+            .then(function () {
+                showCopied(button);
+            })
+            .catch(function () {
+                fallbackCopy(url, button);
+            });
 
-            button.classList.add("copied");
+    } else {
 
+        // Fallback for HTTP / older browsers
+        fallbackCopy(url, button);
 
-            setTimeout(function () {
-
-                button.innerText = "Copy";
-
-                button.classList.remove("copied");
-
-            }, 2000);
-
-        })
-        .catch(function () {
-
-            alert("Unable to copy URL.");
-
-        });
-
+    }
 }
 
+
+function fallbackCopy(url, button) {
+
+    const textarea = document.createElement("textarea");
+
+    textarea.value = url;
+
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+
+    document.body.appendChild(textarea);
+
+    textarea.focus();
+    textarea.select();
+
+    try {
+
+        document.execCommand("copy");
+
+        showCopied(button);
+
+    } catch (error) {
+
+        alert("Unable to copy URL.");
+
+    }
+
+    document.body.removeChild(textarea);
+}
+
+
+function showCopied(button) {
+
+    button.innerText = "Copied ✓";
+
+    button.classList.add("copied");
+
+    setTimeout(function () {
+
+        button.innerText = "Copy";
+
+        button.classList.remove("copied");
+
+    }, 2000);
+}
 </script>
 
 

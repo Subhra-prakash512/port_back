@@ -1,0 +1,513 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(160, 60, 255, .14),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 30%,
+            rgba(120, 40, 220, .12),
+            transparent 30%
+        ),
+        #07070d;
+
+    color: #fff;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    height: 72px;
+    padding: 0 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(7, 7, 13, .85);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(15px);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #b45cff;
+}
+
+.nav-title {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: #fff;
+
+    padding: 10px 18px;
+
+    border: 1px solid rgba(180,92,255,.4);
+    border-radius: 10px;
+
+    transition: .25s;
+}
+
+.back-btn:hover {
+    background: #9c3cff;
+    border-color: #9c3cff;
+
+    box-shadow:
+        0 0 20px rgba(156,60,255,.4);
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+    width: min(1000px, 92%);
+    margin: auto;
+    padding: 60px 0 100px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.hero-icon {
+    display: inline-flex;
+
+    padding: 9px 18px;
+
+    border-radius: 10px;
+
+    background: rgba(180,92,255,.1);
+    border: 1px solid rgba(180,92,255,.3);
+
+    color: #c982ff;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 0 30px rgba(180,92,255,.12);
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+
+    margin-bottom: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #bd5cff
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    color: #999;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info-box {
+    padding: 24px;
+
+    margin-bottom: 25px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(180,92,255,.07);
+
+    border:
+        1px solid rgba(180,92,255,.25);
+}
+
+.info-title {
+    color: #c982ff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    color: #aaa;
+    line-height: 1.7;
+}
+
+code {
+    font-family: Consolas, monospace;
+    color: #d18aff;
+}
+
+.example {
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background: #09090f;
+
+    border-radius: 10px;
+
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.example span {
+    color: #777;
+    margin-right: 10px;
+}
+
+
+/* =========================================================
+   SQL CARD
+========================================================= */
+
+.sql-card {
+    margin-bottom: 25px;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(15,15,23,.92);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.25);
+
+    backdrop-filter: blur(12px);
+}
+
+.card-header {
+    display: flex;
+    gap: 18px;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.card-header h2 {
+    margin-bottom: 6px;
+}
+
+.card-header p {
+    color: #888;
+}
+
+
+/* =========================================================
+   METHOD BADGES
+========================================================= */
+
+.method {
+    min-width: 95px;
+
+    text-align: center;
+
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    background: rgba(180,92,255,.12);
+
+    color: #c982ff;
+
+    border: 1px solid rgba(180,92,255,.3);
+}
+
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+.sql-card h3 {
+    font-size: 14px;
+    color: #bbb;
+
+    margin:
+        24px 0 9px;
+}
+
+
+/* =========================================================
+   CODE BOX
+========================================================= */
+
+.code-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 16px;
+
+    background: #08080e;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 11px;
+
+    overflow-x: auto;
+}
+
+.code-box code {
+    flex: 1;
+
+    white-space: pre-wrap;
+
+    line-height: 1.6;
+
+    font-size: 13px;
+}
+
+.code-box button {
+    flex-shrink: 0;
+
+    border: 0;
+
+    padding: 8px 13px;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #bd5cff,
+            #8b32ed
+        );
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: .2s;
+}
+
+.code-box button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(180,92,255,.4);
+}
+
+
+/* =========================================================
+   OPERATORS
+========================================================= */
+
+.operator-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(150px, 1fr));
+
+    gap: 12px;
+}
+
+.operator-grid div {
+    padding: 18px;
+
+    background: #09090f;
+
+    border-radius: 11px;
+
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.operator-grid code {
+    display: block;
+
+    font-size: 18px;
+
+    margin-bottom: 8px;
+}
+
+.operator-grid span {
+    color: #888;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   WARNING
+========================================================= */
+
+.warning {
+    margin-top: 20px;
+
+    padding: 16px;
+
+    border-radius: 10px;
+
+    background: rgba(255,170,50,.06);
+
+    border:
+        1px solid rgba(255,170,50,.2);
+
+    color: #aaa;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.security {
+    padding: 30px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(15,15,23,.92);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    text-align: center;
+}
+
+.security h2 {
+    margin-bottom: 20px;
+}
+
+.security h3 {
+    margin:
+        30px 0 15px;
+
+    color: #aaa;
+}
+
+.allowed,
+.blocked {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.allowed span,
+.blocked span {
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+}
+
+.allowed span {
+    background: rgba(70,220,130,.08);
+    border: 1px solid rgba(70,220,130,.2);
+    color: #7ee5a5;
+}
+
+.blocked span {
+    background: rgba(255,70,90,.07);
+    border: 1px solid rgba(255,70,90,.2);
+    color: #ff8995;
+}
+
+.security p {
+    color: #777;
+
+    margin-top: 25px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding: 0 4%;
+    }
+
+    .nav-title {
+        display: none;
+    }
+
+    .container {
+        width: 94%;
+        padding-top: 40px;
+    }
+
+    .sql-card {
+        padding: 20px;
+    }
+
+    .card-header {
+        align-items: flex-start;
+    }
+
+    .method {
+        min-width: 75px;
+    }
+
+    .code-box {
+        align-items: flex-start;
+    }
+
+    .code-box button {
+        margin-top: 2px;
+    }
+}

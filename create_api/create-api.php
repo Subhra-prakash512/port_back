@@ -155,7 +155,8 @@ $api_name_fix = preg_replace('/[^a-zA-Z0-9_]+/', '_', $_POST["api_name"]);
 $api_name_fix = trim($api_name_fix, '_');
             $api_name =$api_name_fix."_".$add_api_name;
             $key_count = count($_POST["key_name"]);
-            $api_url= "localhost/demo";
+            $domain = "http://localhost/port_back/api.php/?key=";
+            
 
            
 
@@ -166,21 +167,24 @@ $api_name_fix = trim($api_name_fix, '_');
             $api_id = $api_id_gen;
             $user_id = $_SESSION["user_id"];
             $unique_add_on = $unique_addon_gen;
+            $api_key = $api_id .$api_name .$unique_add_on;
+            $api_url= $domain .$api_key;
 
 
             $sql = "INSERT INTO api_log
-        (api_id, user_id, api_name, unique_add_on, api_url)
-        VALUES (?, ?, ?, ?, ?)";
+        (api_id, user_id, api_name, unique_add_on, api_url , api_key)
+        VALUES (?, ?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($sql);
 
             $stmt->bind_param(
-                "sssss",
+                "ssssss",
                 $api_id,
                 $user_id,
                 $api_name,
                 $unique_add_on,
-                $api_url
+                $api_url,
+                $api_key
             );
 
                 if ($stmt->execute()) {

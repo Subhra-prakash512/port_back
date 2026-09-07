@@ -343,7 +343,7 @@ $username = $_SESSION["username"];
     <nav class="navbar">
 
         <div class="logo">
-            A<span>•</span>K
+            S<span>•</span>P
         </div>
 
         <a href="logout.php" class="logout">
